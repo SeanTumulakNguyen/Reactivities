@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Header, Icon, List, Container } from 'semantic-ui-react';
 import { IActivity } from '../models/activity';
 import NavBar from '../../features/nav/NavBar';
+import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 
 const App = () => {
-	const [ activities, setActivities ] = useState<IActivity[]>([]);
+	const [activities, setActivities] = useState<IActivity[]>([]);
 
 	useEffect(() => {
 		axios.get<IActivity[]>('http://localhost:5000/api/activities').then((response) => {
@@ -17,8 +18,8 @@ const App = () => {
 	return (
 		<Fragment>
 			<NavBar />
-			<Container style={{marginTop: '7em'}}>
-				<List>{activities.map((activity) => <List.Item key={activity.id}>{activity.title}</List.Item>)}</List>
+			<Container style={{ marginTop: '7em' }}>
+			<ActivityDashboard activities={activities}></ActivityDashboard>
 			</Container>
 		</Fragment>
 	);
