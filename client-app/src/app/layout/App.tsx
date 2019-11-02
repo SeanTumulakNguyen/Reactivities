@@ -28,14 +28,6 @@ const App = () => {
 		setEditMode(false);
 	};
 
-	const handleCreateActivity = (activity: IActivity) => {
-		setActivities([...activities, activity])
-	}
-
-	const handleEditActivity = (activity: IActivity) => {
-		setActivities([...activities.filter(a => a.id !== activity.id), activity])
-	}
-
 	useEffect(() => {
 		axios.get<IActivity[]>('http://localhost:5000/api/activities').then((response) => {
 			// console.log(response);
