@@ -1,12 +1,14 @@
-import React, { useState, useEffect, Fragment, SyntheticEvent } from 'react';
+import React, { useState, useEffect, Fragment, SyntheticEvent, useContext } from 'react';
 import { Container } from 'semantic-ui-react';
 import { IActivity } from '../models/activity';
 import NavBar from '../../features/nav/NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
+import ActivityStore from '../stores/activityStore'
 
 const App = () => {
+	const activityStore = useContext(ActivityStore)
 	const [ activities, setActivities ] = useState<IActivity[]>([]);
 	const [ selectedActivity, setSelectedActivity ] = useState<IActivity | null>(null);
 	const [ editMode, setEditMode ] = useState(false);
@@ -46,7 +48,7 @@ const App = () => {
 	};
 	const handleDeleteActivity = (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
 		setSubmitting(true);
-		setTarget(event.currentTarget.name)
+		setTarget(event.currentTarget.name);
 		agent.Activities
 			.delete(id)
 			.then(() => {
