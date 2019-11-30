@@ -12,7 +12,7 @@ interface DetailParams {
 
 const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
 	const activityStore = useContext(ActivityStore);
-	const { activity, openEditForm, cancelSelectedActivity, loadActivity, loadingInitial } = activityStore;
+	const { activity, loadActivity, loadingInitial } = activityStore;
 
 	useEffect(
 		() => {
