@@ -1,20 +1,19 @@
 import React, { useContext, useEffect } from 'react';
-import { Card, Image, Button, Grid, GridColumn } from 'semantic-ui-react';
+import { Grid, GridColumn } from 'semantic-ui-react';
 import ActivityStore from '../../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import { Link } from 'react-router-dom';
-import { ActivityDetailedHeader } from './ActivityDetailedHeader';
-import { ActivityDetailedInfo } from './ActivityDetailedInfo';
-import { ActivityDetailedChat } from './ActivityDetailedChat';
-import { ActivityDetailedSidebar } from './ActivityDetailedSidebar';
+import ActivityDetailedInfo from './ActivityDetailedInfo';
+import ActivityDetailedChat from './ActivityDetailedChat';
+import ActivityDetailedSidebar from './ActivityDetailedSidebar';
+import ActivityDetailedHeader from './ActivityDetailedHeader';
 
 interface DetailParams {
 	id: string;
 }
 
-const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
+const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match }) => {
 	const activityStore = useContext(ActivityStore);
 	const { activity, loadActivity, loadingInitial } = activityStore;
 
@@ -30,8 +29,8 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, h
 	return (
 		<Grid>
 			<GridColumn width={10}>
-				<ActivityDetailedHeader />
-				<ActivityDetailedInfo />
+				<ActivityDetailedHeader activity={activity} />
+				<ActivityDetailedInfo activity={activity} />
 				<ActivityDetailedChat />
 			</GridColumn>
 			<GridColumn width={6}>
