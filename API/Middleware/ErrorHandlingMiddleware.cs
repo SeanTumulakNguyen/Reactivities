@@ -14,8 +14,8 @@ namespace API.Middleware
         private readonly ILogger<ErrorHandlingMiddleware> _logger;
         public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
-            _logger = logger;
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)

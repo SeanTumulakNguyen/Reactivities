@@ -19,11 +19,16 @@ class ActivityStore {
 
 	groupdActivitiesByDate(activities: IActivity[]) {
 		const sortedActivities = activities.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
-		return Object.entries(sortedActivities.reduce((activities, activity) => {
-			const date = activity.date.split('T')[0];
-			activities[date] = activities[date] ? [...activities[date], activity] : [activity]
-			return activities;
-		}, {} as {[key: string]: IActivity[]}));
+		return Object.entries(
+			sortedActivities.reduce(
+				(activities, activity) => {
+					const date = activity.date.split('T')[0];
+					activities[date] = activities[date] ? [ ...activities[date], activity ] : [ activity ];
+					return activities;
+				},
+				{} as { [key: string]: IActivity[] }
+			)
+		);
 	}
 
 	@action
@@ -61,11 +66,11 @@ class ActivityStore {
 					this.loadingInitial = false;
 				});
 			} catch (error) {
-				console.log(error);
 				runInAction('get activity error', () => {
 					this.loadingInitial = false;
-				});
-				throw error
+				})
+				// throw error
+				console.log(error);
 			}
 		}
 	};
@@ -92,6 +97,7 @@ class ActivityStore {
 			runInAction('create activity error', () => {
 				this.submitting = false;
 			});
+			// throw error
 			console.log(error);
 		}
 	};
