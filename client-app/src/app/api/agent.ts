@@ -12,7 +12,7 @@ axios.interceptors.response.use(undefined, error => {
 		history.push('/notfound');
 	}
 	if (status === 400 && config.method === 'get' && data.errors.hasOwnProperty('id')) {
-		history.push('notfound');
+		history.push('/notfound');
 	}
 });
 
