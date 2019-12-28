@@ -22,7 +22,7 @@ class ActivityStore {
 		return Object.entries(
 			sortedActivities.reduce(
 				(activities, activity) => {
-					const date = activity.date!.toISOString.split('T')[0];
+					const date = activity.date!.toISOString().split('T')[0];
 					activities[date] = activities[date] ? [ ...activities[date], activity ] : [ activity ];
 					return activities;
 				},
@@ -61,6 +61,7 @@ class ActivityStore {
 			try {
 				activity = await agent.Activities.details(id);
 				runInAction('getting activity', () => {
+					activity.date = new Date(activity.date)
 					this.activity = activity;
 					this.loadingInitial = false;
 				});
