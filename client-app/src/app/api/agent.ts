@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
-axios.interceptors.response.use(undefined, error => {
+axios.interceptors.response.use(undefined, (error) => {
 	const { status, data, config } = error.response;
-	console.log(error.response)
+	console.log(error.response);
 	// console.log(error.response.status)
 	if (status === 404) {
 		history.push('/notfound');
@@ -16,8 +16,9 @@ axios.interceptors.response.use(undefined, error => {
 		history.push('/notfound');
 	}
 	if (status === 500) {
-		toast.error("Server error - check the terminal for more info!")
+		toast.error('Server error - check the terminal for more info!');
 	}
+	throw error;
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
