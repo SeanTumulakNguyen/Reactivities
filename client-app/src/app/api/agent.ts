@@ -7,8 +7,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.response.use(undefined, (error) => {
 	const { status, data, config } = error.response;
-	console.log(error.response);
-	// console.log(error.response.status)
+	// console.log(error.response);
 	if (status === 404) {
 		history.push('/notfound');
 	}
