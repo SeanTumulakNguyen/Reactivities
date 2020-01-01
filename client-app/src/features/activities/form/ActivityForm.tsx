@@ -1,6 +1,6 @@
-import React, { useState, FormEvent, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Form, Segment, Button, Grid } from 'semantic-ui-react';
-import { IActivityFormValues, ActivityFormValues } from '../../../app/models/activity';
+import { ActivityFormValues } from '../../../app/models/activity';
 import { v4 as uuid } from 'uuid';
 import ActivityStore from '../../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
@@ -37,9 +37,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({ match, hist
 		createActivity,
 		editActivity,
 		submitting,
-		activity: initialFormState,
 		loadActivity,
-		clearActivity
 	} = activityStore;
 
 	const [ activity, setActivity ] = useState(new ActivityFormValues());
@@ -129,7 +127,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({ match, hist
 								<Button
 									onClick={
 										activity.id ? (
-											() => history.push(`activities/${activity.id}`)
+											() => history.push(`/activities/${activity.id}`)
 										) : (
 											() => history.push('/activities')
 										)
