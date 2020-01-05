@@ -12,6 +12,8 @@ using FluentValidation.AspNetCore;
 using API.Middleware;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Application.Interfaces;
+using Infrastructure.Security;
 
 namespace API
 {
@@ -49,6 +51,8 @@ namespace API
                 var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
                 identityBuilder.AddEntityFrameworkStores<DataContext>();
                 identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
+                services.AddScoped<IJwtGenerator, JwtGenerator>();
 
                 services.AddAuthentication();
         }
