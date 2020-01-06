@@ -19,6 +19,20 @@ namespace Infrastructure.Security
 
             // generate signing credentials
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secrete key"));
+            var creds = new SigningCredentials(key, SecurityAlgorithms. HmacSha512Signature);
+
+            var tokenDesriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(7),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler =  new JwtSecuritytokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDesriptor);
+
+            return tokenHandler.WriteToken(token)
         }
     }
 }
