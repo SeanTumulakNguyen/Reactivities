@@ -14,6 +14,9 @@ using Domain;
 using Microsoft.AspNetCore.Identity;
 using Application.Interfaces;
 using Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace API
 {
@@ -47,14 +50,26 @@ namespace API
                     cfg.RegisterValidatorsFromAssemblyContaining<Create>();
                 });
 
-                var builder = services.AddIdentityCore<AppUser>();
-                var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-                identityBuilder.AddEntityFrameworkStores<DataContext>();
-                identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<DataContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
-                services.AddScoped<IJwtGenerator, JwtGenerator>();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
 
-                services.AddAuthentication();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateAudience = false,
+                    ValidateIssuer = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
