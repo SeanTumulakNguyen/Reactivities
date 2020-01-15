@@ -5,6 +5,7 @@ using Domain;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System;
 
 namespace Infrastructure.Security
 {
@@ -28,7 +29,7 @@ namespace Infrastructure.Security
                 SigningCredentials = creds
             };
 
-            var tokenHandler =  new JwtSecuritytokenHandler();
+            var tokenHandler =  new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDesriptor);
 
