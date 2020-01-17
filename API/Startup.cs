@@ -46,7 +46,8 @@ namespace API
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddControllers(opt => {
+            services.AddControllers(opt =>
+            {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
             })
@@ -62,8 +63,6 @@ namespace API
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
 
-            services.AddScoped<IJwtGenerator, JwtGenerator>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
             {
@@ -75,6 +74,9 @@ namespace API
                     ValidateIssuer = false
                 };
             });
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
