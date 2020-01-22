@@ -3,8 +3,14 @@ import { IUser, IUserFormValues } from '../models/user';
 import agent from '../api/agent';
 import { createContext } from 'vm';
 import activityStore from './activityStore';
+import { RootStore } from './rootStore';
 
 export default class UserStore {
+	rootStore: RootStore;
+	constructor(rootStore: RootStore) {
+		this.rootStore = rootStore;
+	}
+
 	@observable user: IUser | null = null;
 
 	@computed
