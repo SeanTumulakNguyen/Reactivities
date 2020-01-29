@@ -1,13 +1,14 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import { IUser, IUserFormValues } from '../models/user';
 import agent from '../api/agent';
 import { createContext } from 'vm';
 import activityStore from './activityStore';
 import { RootStore } from './rootStore';
+import { history } from '../..';
 
 export default class UserStore {
 	rootStore: RootStore;
-	constructor(rootStore: RootStore) {
+	constructor (rootStore: RootStore) {
 		this.rootStore = rootStore;
 	}
 
@@ -22,10 +23,13 @@ export default class UserStore {
 	login = async (values: IUserFormValues) => {
 		try {
 			const user = await agent.User.login(values);
-			this.user = user;
-			console.log(user)
+			runInAction(() => {
+				this.user = user;
+			});
+			console.log(user);
+			history.push('/activities')
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	};
 }

@@ -11,7 +11,8 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-            if(!userManager.Users.Any()) {
+            if (!userManager.Users.Any())
+            {
                 var users = new List<AppUser> {
                     new AppUser
                     {
@@ -41,7 +42,7 @@ namespace Persistence
                 }
             }
 
-            if(!context.Activities.Any())
+            if (!context.Activities.Any())
             {
                 var activities = new List<Activity>
                 {
@@ -135,7 +136,7 @@ namespace Persistence
                         City = "London",
                         Venue = "Cinema",
                     }
-                    
+
                 };
 
                 context.Activities.AddRange(activities);
