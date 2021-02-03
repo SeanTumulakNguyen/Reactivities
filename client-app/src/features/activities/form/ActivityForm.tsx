@@ -1,8 +1,8 @@
 import React, { FormEvent, useContext, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { IActivity } from "../../../app/models/activity";
-import { v4 as uuid } from 'uuid'
-import ActivityStore from '../../../app/stores/activityStore'
+import { v4 as uuid } from "uuid";
+import ActivityStore from "../../../app/stores/activityStore";
 
 interface IProps {
   activity: IActivity;
@@ -11,8 +11,13 @@ interface IProps {
 export const ActivityForm: React.FC<IProps> = ({
   activity: initialFormState,
 }) => {
-  const activityStore = useContext(ActivityStore)
-  const { createActivity, editActivity, submitting, cancelFormOpen } = activityStore
+  const activityStore = useContext(ActivityStore);
+  const {
+    createActivity,
+    editActivity,
+    submitting,
+    cancelFormOpen,
+  } = activityStore;
 
   const initializeForm = () => {
     if (initialFormState) {
@@ -36,11 +41,11 @@ export const ActivityForm: React.FC<IProps> = ({
     if (activity.id.length === 0) {
       let newActivity = {
         ...activity,
-        id: uuid()
-      }
-      createActivity(newActivity)
+        id: uuid(),
+      };
+      createActivity(newActivity);
     } else {
-      editActivity(activity)
+      editActivity(activity);
     }
   };
 
@@ -76,7 +81,7 @@ export const ActivityForm: React.FC<IProps> = ({
         <Form.Input
           type="datetime-local"
           onChange={handleInputChange}
-          name="date"    
+          name="date"
           placeholder="Date"
           value={activity.date}
         />
@@ -92,7 +97,13 @@ export const ActivityForm: React.FC<IProps> = ({
           name="venue"
           value={activity.venue}
         />
-        <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={cancelFormOpen}
           floated="right"
