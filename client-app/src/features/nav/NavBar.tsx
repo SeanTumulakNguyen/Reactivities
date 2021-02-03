@@ -15,7 +15,7 @@ export const NavBar: React.FC = observer(() => {
         <Menu.Item name="Activities" />
         <Menu.Item>
           <Button
-            onClick={activityStore.openCreateform}
+            onClick={activityStore.openCreateForm}
             positive
             content="Create Activity"
           />
