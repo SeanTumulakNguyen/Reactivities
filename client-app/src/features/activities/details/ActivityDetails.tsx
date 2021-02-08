@@ -23,7 +23,7 @@ export const ActivityDetails: React.FC<
 
   useEffect(() => {
     loadActivity(match.params.id);
-  }, [loadActivity]);
+  }, [loadActivity, match.params.id]);
 
   if (loadingInitial || !activity)
     return <LoadingComponent content="loading activity" />;
