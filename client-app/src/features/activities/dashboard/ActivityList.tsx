@@ -8,7 +8,6 @@ export const ActivityList: React.FC = observer(() => {
   const activityStore = useContext(ActivityStore);
   const {
     activitesByDate,
-    selectActivity,
     deleteActivity,
     submitting,
     target,

@@ -29,5 +29,5 @@ const Activities = {
 };
 
 export default {
-  Activities,
+  Activities
 };
