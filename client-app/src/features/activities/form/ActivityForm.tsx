@@ -20,7 +20,6 @@ export const ActivityForm: React.FC<
     createActivity,
     editActivity,
     submitting,
-    cancelFormOpen,
     clearActivity,
   } = activityStore;
 
@@ -124,7 +123,7 @@ export const ActivityForm: React.FC<
           content="Submit"
         />
         <Button
-          onClick={cancelFormOpen}
+          onClick={() => history.push("/activities")}
           floated="right"
           type="button"
           content="Cancel"
